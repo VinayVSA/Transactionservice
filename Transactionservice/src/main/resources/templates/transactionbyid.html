@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Transactions by ID</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Get Transactions by ID</h1>
+    <div class="container">
+        <form action="/transaction/byAccount"(id=${id}) method="get">
+            <label for="accountId">Enter Account ID:</label>
+            <input type="text" id="accountId" name="id" required>
+            <button type="submit">Get Transactions</button>
+        </form>
+    </div>
+
+    <div class="result">
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+					<th>Transaction Amount</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction Date</th>
+					<th>Account Number</th>
+                </tr>
+            </thead>
+            <tbody>
+				
+                <tr th:each="transaction:${transactions}">
+                    <td th:text="${transaction.transactionId}"></td>
+                    <td th:text="${transaction.transactionAmount}"></td>
+                    <td th:text="${transaction.transactionType}"></td>
+                    <td th:text="${transaction.transactionDate}"></td>
+					<td th:text="${transaction.accountNum}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

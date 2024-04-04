@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.in.entities.Transaction;
 import com.cg.in.services.TransactionService;
@@ -35,5 +37,18 @@ public class TransactionController {
         return ResponseEntity.ok(transactions);
     }
 	
+    @GetMapping("/admin/byAccount")
+    public ModelAndView getTransactionsByAccountid() {
+    	  return new ModelAndView("transactionbyid");
+    }
+    
+    @GetMapping("/byAccount")
+    public ModelAndView getTransactionsByAccountid(@RequestParam("id") int id) {
+    	List<Transaction> transactions = transactionService.getTransactionsByAccountId(id);
+    	ModelAndView mv=new ModelAndView("transactionbyid");
+        
+        mv.addObject("transactions", transactions);
+        return mv;
+    }
 
 }
